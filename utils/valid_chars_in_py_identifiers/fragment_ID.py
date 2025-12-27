@@ -24,6 +24,7 @@ def main() -> None:
     print(output)
     _save_to_file(output, "fragment_ID.txt")
 
+
 def _collect_identifier_codes(is_start: bool) -> List[int]:
     """Collect Unicode code points valid as identifier start or continue characters."""
     codes = []
@@ -41,6 +42,7 @@ def _collect_identifier_codes(is_start: bool) -> List[int]:
     
     return codes
 
+
 def _build_continue_fragment(continue_codes: List[int], python_version: str) -> str:
     """Build the ID_CONTINUE grammar fragment."""
     ranged_unicodes = _format_as_ranges(continue_codes)
@@ -52,6 +54,7 @@ def _build_continue_fragment(continue_codes: List[int], python_version: str) -> 
         f"    ;"
     )
 
+
 def _build_start_fragment(start_codes: List[int], python_version: str) -> str:
     """Build the ID_START grammar fragment."""
     ranged_unicodes = _format_as_ranges(start_codes)
@@ -61,6 +64,7 @@ def _build_start_fragment(start_codes: List[int], python_version: str) -> str:
         f"    : {ranged_unicodes}\n"
         f"    ;"
     )
+
 
 def _format_as_ranges(unicodes: List[int]) -> str:
     """Convert list of Unicode code points into ANTLR4 hex ranges.
@@ -88,6 +92,7 @@ def _format_as_ranges(unicodes: List[int]) -> str:
     
     return "\n    | ".join(ranged_list)
 
+
 def _format_range(start: int, end: int) -> str:
     """Format a Unicode range as ANTLR4 hex literal(s).
     
@@ -103,13 +108,16 @@ def _format_range(start: int, end: int) -> str:
     end_hex = _to_antlr4_hex(end)
     return f"{start_hex} .. {end_hex}"
 
+
 def _to_antlr4_hex(code: int) -> str:
     """Convert Unicode code point to ANTLR4 hex escape sequence."""
     return f"'\\u{{{code:04X}}}'"
 
+
 def _save_to_file(content: str, filename: str) -> None:
     """Save content to file."""
     Path(filename).write_text(content, encoding="utf-8")
+
 
 if __name__ == "__main__":
     main()
