@@ -10,6 +10,7 @@ from typing import List
 
 def main() -> None:
     """Generate and save ANTLR4 ID_START and ID_CONTINUE fragments."""
+    print("main")
     python_version = f"for Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
     
     start_codes = _collect_identifier_codes(is_start=True)
@@ -23,17 +24,8 @@ def main() -> None:
     print(output)
     _save_to_file(output, "fragment_ID.txt")
 
-
 def _collect_identifier_codes(is_start: bool) -> List[int]:
-    """Collect Unicode code points valid as identifier start or continue characters.
-    
-    Args:
-        is_start: If True, collect characters valid as identifier start.
-                  If False, collect characters valid as identifier continue.
-    
-    Returns:
-        Sorted list of Unicode code points.
-    """
+    """Collect Unicode code points valid as identifier start or continue characters."""
     codes = []
     
     for i in range(sys.maxunicode + 1):
@@ -49,7 +41,6 @@ def _collect_identifier_codes(is_start: bool) -> List[int]:
     
     return codes
 
-
 def _build_continue_fragment(continue_codes: List[int], python_version: str) -> str:
     """Build the ID_CONTINUE grammar fragment."""
     ranged_unicodes = _format_as_ranges(continue_codes)
@@ -61,7 +52,6 @@ def _build_continue_fragment(continue_codes: List[int], python_version: str) -> 
         f"    ;"
     )
 
-
 def _build_start_fragment(start_codes: List[int], python_version: str) -> str:
     """Build the ID_START grammar fragment."""
     ranged_unicodes = _format_as_ranges(start_codes)
@@ -72,17 +62,9 @@ def _build_start_fragment(start_codes: List[int], python_version: str) -> str:
         f"    ;"
     )
 
-
 def _format_as_ranges(unicodes: List[int]) -> str:
     """Convert list of Unicode code points into ANTLR4 hex ranges.
-    
     Consecutive code points are merged into ranges (e.g., 'a'..'z').
-    
-    Args:
-        unicodes: Sorted list of Unicode code points.
-    
-    Returns:
-        String of ANTLR4 hex literals separated by " | ", with ranges.
     """
     if not unicodes:
         return ""
@@ -106,16 +88,12 @@ def _format_as_ranges(unicodes: List[int]) -> str:
     
     return "\n    | ".join(ranged_list)
 
-
 def _format_range(start: int, end: int) -> str:
     """Format a Unicode range as ANTLR4 hex literal(s).
     
     Args:
         start: Start code point of the range.
         end: End code point of the range.
-    
-    Returns:
-        ANTLR4 hex literal or range string.
     """
     start_hex = _to_antlr4_hex(start)
     
@@ -125,24 +103,13 @@ def _format_range(start: int, end: int) -> str:
     end_hex = _to_antlr4_hex(end)
     return f"{start_hex} .. {end_hex}"
 
-
 def _to_antlr4_hex(code: int) -> str:
-    """Convert Unicode code point to ANTLR4 hex escape sequence.
-    
-    Args:
-        code: Unicode code point (0-0x10FFFF).
-    
-    Returns:
-        ANTLR4 format: '\\u{XXXX}' or '\\u{XXXXXX}' for code points > 0xFFFF.
-    """
+    """Convert Unicode code point to ANTLR4 hex escape sequence."""
     return f"'\\u{{{code:04X}}}'"
 
-
 def _save_to_file(content: str, filename: str) -> None:
-    """Save content to file.
-    
-    Args:
-        content: Text content to write.
-        filename: Output file path.
-    """
+    """Save content to file."""
     Path(filename).write_text(content, encoding="utf-8")
+
+if __name__ == "__main__":
+    main()
