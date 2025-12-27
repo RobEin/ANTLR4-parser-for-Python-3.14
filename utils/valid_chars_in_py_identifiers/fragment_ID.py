@@ -18,8 +18,8 @@ def main() -> None:
         if c.isidentifier():
             start_codes.append(i)
         else:
-            id = 'a' + c
-            if id.isidentifier():
+            test_id = 'a' + c
+            if test_id.isidentifier():
                 continue_codes.append(i)
 
     
