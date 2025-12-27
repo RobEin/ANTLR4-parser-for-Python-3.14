@@ -28,6 +28,8 @@ THE SOFTWARE.
  *
  */
 
+'use strict';
+
 import { CharStreams, CommonTokenStream, Token, CommonToken, Lexer } from "antlr4";
 import PythonLexer from "./PythonLexer.js";
 import PythonParser from "./PythonParser.js";

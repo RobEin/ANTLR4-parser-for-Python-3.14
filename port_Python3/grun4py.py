@@ -60,7 +60,7 @@ class Grun4py:
             sys.exit(1)
 
         file_path = args[0]
-        
+
         try:
             encoding_name = Grun4py.detectEncoding(file_path)
             text = Grun4py.readFileWithEncoding(file_path, encoding_name)
@@ -114,7 +114,8 @@ class Grun4py:
 
     @staticmethod
     def escapeSpecialChars(text: str) -> str:
-        return (text
+        return (
+                text
                 .replace("\n", "\\n")
                 .replace("\r", "\\r")
                 .replace("\t", "\\t")

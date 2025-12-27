@@ -1,4 +1,5 @@
 // ******* GRUN (Grammar Unit Test) for Python *******
+'use strict';
 
 import fs from "node:fs";
 import path from "node:path";
@@ -192,8 +193,7 @@ class Grun4py {
     static readAsciiLine(fd) {
         const buf = Buffer.alloc(1);
         const lineBuilder = [];
-        let read;
-        while ((read = fs.readSync(fd, buf, 0, 1, null)) !== 0) {
+        while (fs.readSync(fd, buf, 0, 1, null) !== 0) {
             const ascii = buf[0];
             if (ascii > Encodings.MAX_ASCII) return null;
             if (ascii === "\n".charCodeAt(0)) break;
