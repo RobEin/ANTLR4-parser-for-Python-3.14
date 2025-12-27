@@ -1,4 +1,6 @@
-"""Generate ANTLR4 grammar fragments for Python Unicode identifiers."""
+""" related link:  https://github.com/asmeurer/python-unicode-variable-names
+Generate ANTLR4 grammar fragments for Python Unicode identifiers.
+"""
 
 import sys
 from pathlib import Path
