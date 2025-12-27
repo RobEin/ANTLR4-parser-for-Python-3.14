@@ -13,7 +13,7 @@ def main() -> None:
     start_codes = []
     continue_codes = []
 
-    for i in range(sys.maxunicode):
+    for i in range(sys.maxunicode + 1):
         c = chr(i)
         if c.isidentifier():
             start_codes.append(i)
